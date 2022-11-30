@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { nanoid } from 'nanoid';
 import GlobalStyles from './GlobalStyles';
-import ContactForm from './ContactForm/ContactForm';
-import ContactList from './ContactList/ContactList';
-import Filter from './Filter/Filter';
+import ContactForm from './ContactForm';
+import ContactList from './ContactList';
+import Filter from './Filter';
 import {
   Phonebook,
   MainTitle,
@@ -16,6 +16,23 @@ export class App extends Component {
     contacts: [],
     filter: '',
   };
+
+  componentDidMount() {
+    const storageContacts = localStorage.getItem('Contacts');
+    const parsedStorageContacts = JSON.parse(storageContacts);
+
+    if (parsedStorageContacts) {
+      this.setState({ contacts: parsedStorageContacts });
+    }
+  }
+
+  componentDidUpdate(prevProps, ptrevState) {
+    console.log('Обновились контакты, записываю их в хранилище!!!');
+    if (this.state.contacts !== ptrevState.contacts) {
+      console.log('Обновилось поле контакты');
+      localStorage.setItem('Contacts', JSON.stringify(this.state.contacts));
+    }
+  }
 
   addContact = ({ name, number }) => {
     const contact = {

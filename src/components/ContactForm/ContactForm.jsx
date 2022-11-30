@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Form, FormLabel, FormInput } from './ContactForm.styled';
-import Button from 'components/Button/Button';
+import Button from '../Button';
 
 class ContactForm extends Component {
   state = {
@@ -22,7 +22,8 @@ class ContactForm extends Component {
 
   handleAddContact = e => {
     e.preventDefault();
-    console.log(this.state);
+    // console.log(e.target.elements);
+    // console.log(this.state);
 
     this.props.onSubmit(this.state);
     this.resetForm();
